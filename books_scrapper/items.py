@@ -25,6 +25,7 @@ class SingleBookItem(scrapy.Item):
     # book_titles = scrapy.Field()
     # page_number = scrapy.Field(output_processor=TakeFirst())
 
+    book_url = scrapy.Field(output_processor=TakeFirst())
     book_title = scrapy.Field(output_processor=TakeFirst())
     book_price = scrapy.Field(output_processor=TakeFirst())
     book_image = scrapy.Field(

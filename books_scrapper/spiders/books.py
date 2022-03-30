@@ -44,6 +44,7 @@ class BooksSpider(scrapy.Spider):
         loader.add_xpath('book_image', '//img/@src', TakeFirst())
         loader.add_xpath('book_rating', '//*[contains(@class, "star-rating")]/@class', TakeFirst())
         loader.add_xpath('book_description', '//*[@id="product_description"]/following-sibling::p/text()')
+        loader.add_value('book_url', response.url)
         yield loader.load_item()
 
 
