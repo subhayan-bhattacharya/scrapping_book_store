@@ -6,6 +6,7 @@
 import logging
 import scrapy
 from itemloaders.processors import TakeFirst
+from word2number import w2n
 
 
 def _construct_image_full_path(value):
@@ -15,7 +16,8 @@ def _construct_image_full_path(value):
 
 def _extract_star_rating(value):
     logging.debug(f"The value of the book rating is {value}")
-    return value[0].replace("star-rating ", "")
+    word_number = value[0].replace("star-rating ", "")
+    return w2n.word_to_num(word_number)
 
 
 class SingleBookItem(scrapy.Item):

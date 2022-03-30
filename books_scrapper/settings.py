@@ -62,7 +62,10 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-ITEM_PIPELINES = {'scrapy.pipelines.images.ImagesPipeline': 1}
+ITEM_PIPELINES = {
+    'scrapy.pipelines.images.ImagesPipeline': 500,
+    'books_scrapper.pipelines.BooksScrapperPipeline': 300
+}
 IMAGES_STORE = '/home/subhayan/Downloads'
 
 # Enable and configure the AutoThrottle extension (disabled by default)
