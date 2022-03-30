@@ -43,6 +43,7 @@ class BooksSpider(scrapy.Spider):
         loader.add_xpath('book_title', '//h1/text()')
         loader.add_xpath('book_price', '//*[@class="price_color"]/text()')
         loader.add_xpath('book_image', '//img/@src', TakeFirst())
+        loader.add_xpath('image_urls', '//img/@src', TakeFirst())
         loader.add_xpath('book_rating', '//*[contains(@class, "star-rating")]/@class', TakeFirst())
         loader.add_xpath('book_description', '//*[@id="product_description"]/following-sibling::p/text()')
         loader.add_value('book_url', response.url)

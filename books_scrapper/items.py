@@ -42,4 +42,7 @@ class SingleBookItem(scrapy.Item):
     availability = scrapy.Field(output_processor=TakeFirst())
     number_of_reviews = scrapy.Field(output_processor=TakeFirst())
 
+    image_urls = scrapy.Field(input_processor=_construct_image_full_path)
+    images = scrapy.Field()
+
 
