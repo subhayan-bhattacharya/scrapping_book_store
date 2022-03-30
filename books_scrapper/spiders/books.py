@@ -1,6 +1,7 @@
 import scrapy
 from scrapy.loader import ItemLoader
-from books_scrapper.items import BooksScrapperItem
+from books_scrapper.items import SingleBookItem
+from itemloaders.processors import TakeFirst
 
 
 class BooksSpider(scrapy.Spider):
@@ -36,5 +37,13 @@ class BooksSpider(scrapy.Spider):
         yield scrapy.Request(absolute_next_page_url)
 
     def _parse_individual_book(self, response):
-        pass
+        """Method to parse the individual books."""
+        loader = ItemLoader(item=SingleBookItem(), response=response)
+        loader.add_xpath('book_title', '//h1/text()')
+        loader.add_xpath('book_price', '//*[@class="price_color"]/text()')
+        loader.add_xpath('book_image', '//img/@src', TakeFirst())
+        loader.add_xpath('book_rating', '//*[contains(@class, "star-rating")]/@class', TakeFirst())
+        loader.add_xpath('book_description', '//*[@id="product_description"]/following-sibling::p/text()')
+        yield loader.load_item()
+
 
