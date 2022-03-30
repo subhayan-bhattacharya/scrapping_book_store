@@ -37,4 +37,9 @@ class SingleBookItem(scrapy.Item):
         output_processor=TakeFirst()
     )
     book_description = scrapy.Field(output_processor=TakeFirst())
+    upc = scrapy.Field(output_processor=TakeFirst())
+    product_type = scrapy.Field(output_processor=TakeFirst())
+    availability = scrapy.Field(output_processor=TakeFirst())
+    number_of_reviews = scrapy.Field(output_processor=TakeFirst())
+
 

@@ -10,9 +10,10 @@ class BooksSpider(scrapy.Spider):
     start_urls = ['http://books.toscrape.com/']
     filename = 'book_titles.txt'
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, category=None, *args, **kwargs):
         super(BooksSpider, self).__init__(*args, **kwargs)
-        self._page_number = 1
+        if category is not None:
+            self.start_urls = [f"https://books.toscrape.com/catalogue/category/books/{category}/index.html"]
 
     def parse(self, response):
         # This is the code to just extract all the items from the book website
@@ -45,6 +46,13 @@ class BooksSpider(scrapy.Spider):
         loader.add_xpath('book_rating', '//*[contains(@class, "star-rating")]/@class', TakeFirst())
         loader.add_xpath('book_description', '//*[@id="product_description"]/following-sibling::p/text()')
         loader.add_value('book_url', response.url)
+
+        # product information data points
+        loader.add_xpath('upc', '//th[text()="UPC"]/following-sibling::td/text()')
+        loader.add_xpath('product_type', '//th[text()="Product Type"]/following-sibling::td/text()')
+        loader.add_xpath('availability', '//th[text()="Availability"]/following-sibling::td/text()')
+        loader.add_xpath('number_of_reviews', '//th[text()="Number of reviews"]/following-sibling::td/text()')
+
         yield loader.load_item()
 
 
