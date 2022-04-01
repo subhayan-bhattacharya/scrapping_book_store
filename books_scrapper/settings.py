@@ -63,10 +63,13 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
+    'books_scrapper.pipelines.MongoPipeline': 600,
     'scrapy.pipelines.images.ImagesPipeline': 500,
     'books_scrapper.pipelines.BooksScrapperPipeline': 300
 }
 IMAGES_STORE = '/home/subhayan/Downloads'
+
+MONGO_URI = "mongodb://admin:password@localhost:27017"
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
